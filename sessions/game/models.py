@@ -10,6 +10,7 @@ class Game(models.Model):
     player = models.ForeignKey("Player", on_delete=models.CASCADE, related_name="player", blank=True, null=True)
     master = models.ForeignKey("Player", on_delete=models.CASCADE, related_name="master", blank=True, null=True)
     is_closed = models.BooleanField()
+    is_winned = models.BooleanField(default=False)
 
 
 class PlayerGameInfo(models.Model):

@@ -57,12 +57,42 @@ def show_home(request):
 
 
 def test_view(request):
-    if request.session.get("player_id", None):
+    context = {
+        "keyword": "Проверить"
+    }
+    if request.session.get("player_id", None):  # Если пользователь имеет сессию(И игру)
         print(request.session["player_id"])
         print("u a have session")
         print(Player.objects.filter(id=request.session["player_id"])[0].master.all())
         print(Player.objects.filter(id=request.session["player_id"])[0].player.all())
-    else:
+        if Player.objects.filter(id=request.session["player_id"])[0].player.all():
+            context["is_master"] = False
+            if request.method == "POST":
+                game_object = Player.objects.filter(id=request.session["player_id"])[0].player.all()[0]
+                if int(request.POST["number"]) != game_object.number:
+                    context["is_more"] = True if int(request.POST["number"]) > game_object.number else False
+                    attempts = Player.objects.filter(id=request.session["player_id"])[0].attempts
+                    player = Player.objects.filter(id=request.session["player_id"])[0]
+
+                    player.attempts = attempts + 1
+
+                    player.save()
+                    print(attempts)
+                else:
+                    context["winner"] = True
+                    game = Player.objects.filter(id=request.session["player_id"])[0].player.all()[0]
+                    game.is_winned = True
+                    game.save()
+                print(game_object.number)
+        else:
+            context["is_master"] = True
+            if Player.objects.filter(id=request.session["player_id"])[0].master.all()[0].is_winned:
+                context["master_lose"] = True
+                context["attempts"] = Player.objects.filter(id=request.session["player_id"])[0].master.all()[0].player.attempts
+
+
+
+    else:  # Если пользователь без сессии(И игры)
         print("u a haven't session")
         user = Player.objects.create(attempts=0)
         user.save()
@@ -80,7 +110,11 @@ def test_view(request):
             game.save()
             print("Game created")
 
-    return HttpResponse("SOMETEXT")
+    return render(
+        request,
+        "home.html",
+        context
+    )
 
 
 def create_game(request):
@@ -88,11 +122,13 @@ def create_game(request):
     game.save()
     return HttpResponse("SOMETEXTagain")
 
+
 def clear_games(request):
     for game in Game.objects.filter(is_closed=False):
         game.is_closed = True
         game.save()
     return HttpResponse("SOMETEXTagainagain")
+
 
 def get_game_id(request):
     return HttpResponse(Player.objects.filter(id=request.session["player_id"])[0].player)

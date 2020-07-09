@@ -4,18 +4,23 @@
 {% block title %}Угадай число{% endblock %}
 
 {% block content %}
-    <form action="/" method="POST">
+    {% if not is_master %}
+    <form method="POST">
         {% csrf_token %}
         <input type="text" name="number">
         <input type="submit" value="{{ keyword }}">
     </form>
+    {% endif %}
     {% if winner %}
         Вы угадали число!
     {% else %}
     {% if is_more %}
-        Ваше число боль заданного
-    {% else %}
+        Ваше число больше заданного
+    {% elif is_more is False %}
         Ваше число меньше заданного
     {% endif %}
+    {% endif %}
+    {% if master_lose %}
+    <p>Количество попыток: {{ attempts }}</p>
     {% endif %}
 {% endblock %}
