@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    {% if not is_login %}
+        <p>{{ is_login }}</p>
+    <div class="container">
+        <div class="header"></div>
+            Привет, <b>гость</b>.<br>
+            Пожалуйста, <a href="/signup">зарегистрируйся</a> или <a href="/login">авторизуйся</a>!
+    {% else %}
+        <div class="container">
+            <p>Привет, <b>{{ username }}</b></p>
+            <form action="signup/" target="_blank">
+                <button>Зарегистрировать нового пользователя</button>
+            </form>
+            <form action="login/" target="_blank">
+                <button>Войти под другим аккаунтом</button>
+            </form>
+            <form action="logout/" target="_blank">
+                <button>Выйти</button>
+            </form>
+        </div>
+    {% endif %}
+    </div>
+{% endblock %}

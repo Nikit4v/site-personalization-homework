@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="db" uuid="52ae9880-1680-4393-baa5-59b7ba9095bc">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Diabl\Downloads\dj-homeworks-master\dj-homeworks-master\site-personalization\sessions\db.sqlite3</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="db [2]" uuid="df2ff54a-0e24-44fe-b2ac-d0355dfdaba8">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Diabl\Desktop\dj-homeworks-master\dj-homeworks-master\site-personalization\sessions\db.sqlite3</jdbc-url>
+    </data-source>
+  </component>
+</project>
