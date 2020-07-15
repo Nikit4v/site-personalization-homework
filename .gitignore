@@ -123,3 +123,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+sessions/.idea/*.*
+sessions/.idea/misc.xml
+sessions/.idea/sessions.iml
+sessions/.idea/vcs.xml
+*.iml
+*.xml
